@@ -35,7 +35,7 @@ jobs:
       id: build-image
       env:
         REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        REPOSITORY: jinwoo-frontend
+        REPOSITORY: ec2-team-frontend
         IMAGE_TAG: ${{ github.sha }}
       with:
         push: true
