@@ -69,7 +69,7 @@ jobs:
       env:
         IMAGE_TAG: ${{ github.sha }}
       run: |
-        cd k8s-manifest-repo
+        cd manifest
         git config --global user.email "ec2team@multicampus.test"
         git config --global user.name "ec2team"
         git add .
