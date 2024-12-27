@@ -45,6 +45,37 @@ jobs:
         cache-from: type=gha              
         cache-to: type=gha,mode=max
 
+    - name: Checkout Kubernetes manifests repository
+      uses: actions/checkout@v4
+      with:
+        repository: mc-workercloud-ec2/manifest
+        ref: main
+        token: ${{ secrets.ACTION_TOKEN }}
+        path: manifest
+  
+  
+    - name: Update Kubernetes resources
+      env:
+        REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        REPOSITORY: ec2-team-frontend
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        MANIFEST_PATH="manifest/front/deployment.yaml" 
+        NEW_IMAGE="$REGISTRY/$REPOSITORY:$IMAGE_TAG"
+        sed -i "s|image:*|image: $REGISTRY\/$REPOSITORY:$IMAGE_TAG|" $MANIFEST_PATH
+        cat $MANIFEST_PATH
+  
+    - name: Commit files
+      env:
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        cd k8s-manifest-repo
+        git config --global user.email "ec2team@multicampus.test"
+        git config --global user.name "ec2team"
+        git add .
+        git commit -m "Update image tag: $IMAGE_TAG"
+          git push -u origin main
+          
     - name: Post a message in a channel
       uses: slackapi/slack-github-action@v2.0.0
       if: always()
