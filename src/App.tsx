@@ -46,12 +46,12 @@ function App() {
                 <Button variant="contained" color="success">채용사이트 관리자 페이지</Button>
             </Item>
             <ItemLeft>
-                <Button variant="contained">Applicant App BackEnd Data - 이력서 정보</Button>
+                <Button variant="contained">Applicant App BackEnd Data - 이력서 정보 V2</Button>
             </ItemLeft>
                 <ApplicantGrid gridData={resumeData} ></ApplicantGrid>
             <Item></Item>
             <ItemLeft>
-                <Button variant="contained">Jobposting App BackEnd Data - 채용공고 정보</Button>
+                <Button variant="contained">Jobposting App BackEnd Data - 채용공고 정보 V2</Button>
             </ItemLeft>
                 <JobGrid gridData={jobData} ></JobGrid>
             <Item>WePLAT Cloud Infra</Item>
