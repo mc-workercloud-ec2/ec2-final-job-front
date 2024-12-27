@@ -62,7 +62,7 @@ jobs:
       run: |
         MANIFEST_PATH="manifest/front/deployment.yaml" 
         NEW_IMAGE="$REGISTRY/$REPOSITORY:$IMAGE_TAG"
-        sed -i "s|image:*|image: $REGISTRY\/$REPOSITORY:$IMAGE_TAG|" $MANIFEST_PATH
+        sed -i "s|^\(\s*\)image:.*|\1image: $REGISTRY/$REPOSITORY:$IMAGE_TAG|" $MANIFEST_PATH
         cat $MANIFEST_PATH
   
     - name: Commit files
